@@ -9,7 +9,12 @@ import sharp from "sharp";
 const genAI = new GoogleGenAI({ apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY || "" });
 
 // Import service account
-import serviceAccount from "../file.json";
+// import serviceAccount from "../file.json";
+const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT!);
+
+if (!process.env.GOOGLE_SERVICE_ACCOUNT) {
+  throw new Error("Missing GOOGLE_SERVICE_ACCOUNT environment variable");
+}
 
 const visionClient = new ImageAnnotatorClient({
   credentials: serviceAccount,
