@@ -3,11 +3,7 @@
 import { useEffect, useState } from "react"
 import { useAuth } from "@/contexts/auth-context"
 import { getUserRecords, type MedicalRecord } from "@/lib/record-service"
-<<<<<<< HEAD
 // import { analyzePatternAcrossRecords } from "@/lib/ai-service"
-=======
-import { analyzePatternAcrossRecords } from "@/lib/ai-service"
->>>>>>> 8afcabb366ea21fa6b3d14acc5d5f4882f453888
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -71,13 +67,8 @@ export default function PatternAnalysisPage() {
           ].join("\n")
         })
 
-<<<<<<< HEAD
       // const analysisResult = await analyzePatternAcrossRecords(recordsToAnalyze)
       // setAnalysis(analysisResult)
-=======
-      const analysisResult = await analyzePatternAcrossRecords(recordsToAnalyze)
-      setAnalysis(analysisResult)
->>>>>>> 8afcabb366ea21fa6b3d14acc5d5f4882f453888
     } catch (error) {
       console.error("Error analyzing patterns:", error)
       alert("Failed to analyze patterns. Please try again.")

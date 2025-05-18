@@ -4,11 +4,7 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/contexts/auth-context"
 import { getRecord, deleteRecord, type MedicalRecord } from "@/lib/record-service"
-<<<<<<< HEAD
 // import { summarizeRecord } from "@/lib/ai-service"
-=======
-import { summarizeRecord } from "@/lib/ai-service"
->>>>>>> 8afcabb366ea21fa6b3d14acc5d5f4882f453888
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -87,7 +83,6 @@ export default function RecordDetailPage({ params }: { params: { id: string } })
         `Notes: ${record.notes || "No additional notes"}`,
       ].join("\n\n")
 
-<<<<<<< HEAD
       // const summary = await summarizeRecord(textToSummarize, summaryType)
 
       // Update the record with the new summary
@@ -102,22 +97,6 @@ export default function RecordDetailPage({ params }: { params: { id: string } })
       //     doctorSummary: summary,
       //   })
       // }
-=======
-      const summary = await summarizeRecord(textToSummarize, summaryType)
-
-      // Update the record with the new summary
-      if (summaryType === "layman") {
-        setRecord({
-          ...record,
-          laymanSummary: summary,
-        })
-      } else {
-        setRecord({
-          ...record,
-          doctorSummary: summary,
-        })
-      }
->>>>>>> 8afcabb366ea21fa6b3d14acc5d5f4882f453888
     } catch (error) {
       console.error("Error generating summary:", error)
       alert("Failed to generate summary. Please try again.")

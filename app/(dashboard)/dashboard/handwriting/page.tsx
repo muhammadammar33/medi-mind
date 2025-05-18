@@ -1,10 +1,6 @@
 "use client"
 
 import type React from "react"
-<<<<<<< HEAD
-=======
-
->>>>>>> 8afcabb366ea21fa6b3d14acc5d5f4882f453888
 import { useState, useRef } from "react"
 import { useAuth } from "@/contexts/auth-context"
 import { recognizeHandwriting } from "@/lib/ai-service"
@@ -15,24 +11,18 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { PenTool, Upload, ImageIcon, Loader2, Copy, Save } from "lucide-react"
-<<<<<<< HEAD
 // import { addRecord } from "@/lib/record-service"
-=======
-import { addRecord } from "@/lib/record-service"
->>>>>>> 8afcabb366ea21fa6b3d14acc5d5f4882f453888
+// import { addRecord } from "@/lib/record-service"
 import { useRouter } from "next/navigation"
 
-export default function HandwritingRecognitionPage() {
+export default function HandwritingPage() {
   const { user } = useAuth()
   const router = useRouter()
   const [image, setImage] = useState<string | null>(null)
   const [file, setFile] = useState<File | null>(null)
   const [recognizedText, setRecognizedText] = useState("")
-<<<<<<< HEAD
   const [suggestedTitle, setSuggestedTitle] = useState("")
   const [suggestedProvider, setSuggestedProvider] = useState("")
-=======
->>>>>>> 8afcabb366ea21fa6b3d14acc5d5f4882f453888
   const [loading, setLoading] = useState(false)
   const [savingRecord, setSavingRecord] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -40,13 +30,10 @@ export default function HandwritingRecognitionPage() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const selectedFile = e.target.files[0]
-<<<<<<< HEAD
       if (!selectedFile.type.startsWith("image/")) {
         alert("Please upload a valid image file.")
         return
       }
-=======
->>>>>>> 8afcabb366ea21fa6b3d14acc5d5f4882f453888
       setFile(selectedFile)
 
       const reader = new FileReader()
@@ -60,7 +47,6 @@ export default function HandwritingRecognitionPage() {
   }
 
   const handleRecognize = async () => {
-<<<<<<< HEAD
     if (!image) {
       alert("Please upload an image first.")
       return
@@ -78,15 +64,6 @@ export default function HandwritingRecognitionPage() {
       if (result.provider) {
         setSuggestedProvider(result.provider)
       }
-=======
-    if (!image) return
-
-    setLoading(true)
-
-    try {
-      const text = await recognizeHandwriting(image)
-      setRecognizedText(text)
->>>>>>> 8afcabb366ea21fa6b3d14acc5d5f4882f453888
     } catch (error) {
       console.error("Error recognizing handwriting:", error)
       alert("Failed to recognize handwriting. Please try again.")
@@ -96,43 +73,29 @@ export default function HandwritingRecognitionPage() {
   }
 
   const handleCopyText = () => {
-<<<<<<< HEAD
     if (recognizedText) {
       navigator.clipboard.writeText(recognizedText)
       alert("Text copied to clipboard!")
     }
-=======
-    navigator.clipboard.writeText(recognizedText)
-    alert("Text copied to clipboard!")
->>>>>>> 8afcabb366ea21fa6b3d14acc5d5f4882f453888
   }
 
   const handleSaveAsRecord = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-<<<<<<< HEAD
     if (!user || !recognizedText) {
       alert("Please recognize text before saving.")
       return
     }
-=======
-    if (!user || !recognizedText) return
->>>>>>> 8afcabb366ea21fa6b3d14acc5d5f4882f453888
 
     const formData = new FormData(e.currentTarget)
     const title = formData.get("title") as string
     const provider = formData.get("provider") as string
 
     if (!title || !provider) {
-<<<<<<< HEAD
       alert("Please fill in all required fields.")
-=======
-      alert("Please fill in all required fields")
->>>>>>> 8afcabb366ea21fa6b3d14acc5d5f4882f453888
       return
     }
-
+    
     setSavingRecord(true)
-<<<<<<< HEAD
     try {
       console.log("Starting to save record...")
       
@@ -149,7 +112,7 @@ export default function HandwritingRecognitionPage() {
 
       // Create record data
       const recordData = {
-        userId: user.uid,
+        userId: user?.uid || '',
         title,
         type: recordType,
         date: new Date(),
@@ -177,45 +140,16 @@ export default function HandwritingRecognitionPage() {
       console.log("Navigating to record page...")
       // Navigate to the record page after saving
       router.push(`/dashboard/records/${recordId}`)
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Error saving record:", error)
       alert(`Failed to save record: ${error instanceof Error ? error.message : "Unknown error"}. Please try again.`)
       setSavingRecord(false) // Important: Reset saving state on error
-=======
-
-    try {
-      const recordId = await addRecord(
-        {
-          userId: user.uid,
-          title,
-          type: "prescription",
-          date: new Date(),
-          provider,
-          notes: recognizedText,
-        },
-        file || undefined,
-      )
-
-      router.push(`/dashboard/records/${recordId}`)
-    } catch (error) {
-      console.error("Error saving record:", error)
-      alert("Failed to save record. Please try again.")
-    } finally {
-      setSavingRecord(false)
->>>>>>> 8afcabb366ea21fa6b3d14acc5d5f4882f453888
     }
   }
 
   return (
-<<<<<<< HEAD
     <div className="container mx-auto p-4 space-y-6">
       <h1 className="text-3xl font-bold">Handwriting Recognition</h1>
-=======
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Handwriting Recognition</h1>
-      </div>
->>>>>>> 8afcabb366ea21fa6b3d14acc5d5f4882f453888
 
       <Card>
         <CardHeader>
@@ -228,11 +162,7 @@ export default function HandwritingRecognitionPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-<<<<<<< HEAD
           <Tabs defaultValue="upload" className="w-full">
-=======
-          <Tabs defaultValue="upload">
->>>>>>> 8afcabb366ea21fa6b3d14acc5d5f4882f453888
             <TabsList className="mb-4">
               <TabsTrigger value="upload">Upload Image</TabsTrigger>
               <TabsTrigger value="results" disabled={!recognizedText}>
@@ -253,30 +183,16 @@ export default function HandwritingRecognitionPage() {
                     onChange={handleFileChange}
                     className="hidden"
                   />
-<<<<<<< HEAD
-=======
-
->>>>>>> 8afcabb366ea21fa6b3d14acc5d5f4882f453888
                   <div
                     className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-md border border-dashed p-4 hover:bg-muted/50"
                     onClick={() => fileInputRef.current?.click()}
                   >
                     {image ? (
-<<<<<<< HEAD
                       <img
                         src={image}
                         alt="Uploaded prescription"
                         className="mx-auto h-full max-h-full object-contain"
                       />
-=======
-                      <div className="relative h-full w-full">
-                        <img
-                          src={image || "/placeholder.svg"}
-                          alt="Uploaded prescription"
-                          className="mx-auto h-full max-h-full object-contain"
-                        />
-                      </div>
->>>>>>> 8afcabb366ea21fa6b3d14acc5d5f4882f453888
                     ) : (
                       <>
                         <ImageIcon className="mb-2 h-10 w-10 text-muted-foreground" />
@@ -285,10 +201,6 @@ export default function HandwritingRecognitionPage() {
                       </>
                     )}
                   </div>
-<<<<<<< HEAD
-=======
-
->>>>>>> 8afcabb366ea21fa6b3d14acc5d5f4882f453888
                   <div className="flex gap-2">
                     <Button variant="outline" onClick={() => fileInputRef.current?.click()}>
                       <Upload className="mr-2 h-4 w-4" />
@@ -316,21 +228,13 @@ export default function HandwritingRecognitionPage() {
               <div className="space-y-4">
                 <div className="flex justify-between">
                   <h3 className="text-lg font-medium">Recognized Text</h3>
-<<<<<<< HEAD
                   <Button variant="outline" size="sm" onClick={handleCopyText} disabled={!recognizedText}>
-=======
-                  <Button variant="outline" size="sm" onClick={handleCopyText}>
->>>>>>> 8afcabb366ea21fa6b3d14acc5d5f4882f453888
                     <Copy className="mr-2 h-4 w-4" />
                     Copy Text
                   </Button>
                 </div>
                 <div className="rounded-md bg-muted p-4">
-<<<<<<< HEAD
                   <p className="whitespace-pre-line">{recognizedText || "No text recognized yet."}</p>
-=======
-                  <p className="whitespace-pre-line">{recognizedText}</p>
->>>>>>> 8afcabb366ea21fa6b3d14acc5d5f4882f453888
                 </div>
               </div>
             </TabsContent>
@@ -339,7 +243,6 @@ export default function HandwritingRecognitionPage() {
               <form onSubmit={handleSaveAsRecord} className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="title">Record Title</Label>
-<<<<<<< HEAD
                   <Input 
                     id="title" 
                     name="title" 
@@ -358,16 +261,6 @@ export default function HandwritingRecognitionPage() {
                     required 
                   />
                 </div>
-=======
-                  <Input id="title" name="title" placeholder="Prescription from Dr. Smith" required />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="provider">Healthcare Provider</Label>
-                  <Input id="provider" name="provider" placeholder="Dr. Smith / City Hospital" required />
-                </div>
-
->>>>>>> 8afcabb366ea21fa6b3d14acc5d5f4882f453888
                 <div className="space-y-2">
                   <Label htmlFor="notes">Recognized Text</Label>
                   <Textarea
@@ -378,10 +271,6 @@ export default function HandwritingRecognitionPage() {
                     placeholder="The recognized text will appear here"
                   />
                 </div>
-<<<<<<< HEAD
-=======
-
->>>>>>> 8afcabb366ea21fa6b3d14acc5d5f4882f453888
                 <Button type="submit" className="w-full" disabled={savingRecord}>
                   {savingRecord ? (
                     <>
@@ -402,8 +291,4 @@ export default function HandwritingRecognitionPage() {
       </Card>
     </div>
   )
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 8afcabb366ea21fa6b3d14acc5d5f4882f453888

@@ -18,10 +18,6 @@ import { format } from "date-fns"
 import { CalendarIcon, FilePlus, Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 8afcabb366ea21fa6b3d14acc5d5f4882f453888
 export default function AddRecordPage() {
   const { user } = useAuth()
   const router = useRouter()
