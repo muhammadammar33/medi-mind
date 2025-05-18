@@ -1,6 +1,12 @@
 "use client"
 
-import { db, storage } from "@/lib/firebase"
+// import { db, storage } from "@/lib/firebase"
+import { Firestore } from "firebase/firestore"
+import { FirebaseStorage } from "firebase/storage"
+
+// Explicitly type the imports
+declare const db: Firestore;
+declare const storage: FirebaseStorage;
 import {
   collection,
   addDoc,

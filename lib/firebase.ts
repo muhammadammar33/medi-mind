@@ -1,5 +1,5 @@
 import { initializeApp, getApps } from "firebase/app"
-import { getAuth } from "firebase/auth"
+import { getAuth, type Auth } from "firebase/auth"
 import { getFirestore } from "firebase/firestore"
 import { getStorage } from "firebase/storage"
 
@@ -8,13 +8,16 @@ export const firebaseConfig = {
   apiKey: "AIzaSyD7PdL-C7QHzNABcEWvmVAHLNiYcr0qpF8",
   authDomain: "gsc-project-2025.firebaseapp.com",
   projectId: "gsc-project-2025",
-  storageBucket: "gsc-project-2025.appspot.com", // Corrected to standard format
+  storageBucket: "gsc-project-2025.appspot.com",
   messagingSenderId: "260964901002",
   appId: "1:260964901002:web:ed2252fe48268a69278d73",
 }
 
 // Initialize Firebase only on the client side
-let app, auth, db, storage
+let app
+let auth: Auth | undefined
+let db
+let storage
 
 if (typeof window !== "undefined") {
   try {
